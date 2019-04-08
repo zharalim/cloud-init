@@ -620,7 +620,7 @@ dscheck_MAAS() {
 }
 
 dscheck_NoCloud() {
-    local d=""
+    local fslabel="cidata CIDATA" d=""
     case " ${DI_KERNEL_CMDLINE} " in
         *\ ds=nocloud*) return ${DS_FOUND};;
     esac
@@ -632,7 +632,7 @@ dscheck_NoCloud() {
         check_seed_dir "$d" meta-data user-data && return ${DS_FOUND}
         check_writable_seed_dir "$d" meta-data user-data && return ${DS_FOUND}
     done
-    if has_fs_with_label "cidata" "CIDATA"; then
+    if has_fs_with_label $fslabel; then
         return ${DS_FOUND}
     fi
     return ${DS_NOT_FOUND}
